@@ -1,0 +1,465 @@
+:root {
+    --ink: #1d2340;
+    --line: #9aa1ae;
+    --paper: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    background: #e8e9ef;
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+.print-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 58px;
+    padding: 14px 24px;
+    border-top: 1px solid #d5d8e3;
+    color: #73798b;
+    background: #f4f5fa;
+    font-size: 10px;
+    letter-spacing: .08em;
+}
+
+.print-footer p {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 0;
+}
+
+.footer-mark {
+    color: #6d61bd;
+    font-size: 15px;
+}
+
+.print-toolbar {
+    display: flex;
+    justify-content: space-between;
+    width: min(900px, calc(100% - 32px));
+    margin: 20px auto;
+}
+
+.print-toolbar a,
+.print-toolbar button {
+    padding: 9px 14px;
+    border: 1px solid #6d7394;
+    border-radius: 7px;
+    color: #30345b;
+    background: #fff;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+#print-pages {
+    display: grid;
+    gap: 24px;
+    padding-bottom: 30px;
+}
+
+.paper {
+    display: flex;
+    flex-direction: column;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 12mm 18mm;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: 0 8px 24px rgb(20 24 50 / 18%);
+}
+
+.paper-topline,
+.paper-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #73798b;
+    font-size: 9pt;
+}
+
+.paper h1 {
+    margin: 9mm 0 3mm;
+    font-family: Georgia, serif;
+    font-size: 20pt;
+    text-align: center;
+}
+
+.page-content {
+    margin: 0;
+    color: #60677a;
+    font-size: 10pt;
+    white-space: pre-wrap;
+}
+
+.note-content {
+    flex: 1;
+    margin-top: 5mm;
+    line-height: 20px;
+    white-space: pre-wrap;
+}
+
+.boards {
+    display: grid;
+    gap: 12mm;
+    margin-top: 5mm;
+}
+
+.chord-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5mm 10mm;
+    margin-top: 4mm;
+}
+
+.chord-card h3 {
+    margin: 0 0 1mm;
+    font-size: 8pt;
+    text-align: center;
+}
+
+.chord-fret-label {
+    margin: -1mm 0 2mm;
+    color: #5f6778;
+    font-size: 8pt;
+    text-align: center;
+}
+
+.chord-diagram {
+    display: grid;
+    grid-template-columns: 6mm repeat(var(--chord-frets), minmax(0, 1fr));
+    overflow: hidden;
+    border: .3mm solid #697080;
+    background: #fff;
+}
+
+.chord-number-corner,
+.chord-fret-number {
+    display: grid;
+    height: 4mm;
+    place-items: center;
+    border-bottom: .25mm solid #aeb5c2;
+    color: #425477;
+    background: #eef1f7;
+    font-size: 5pt;
+    font-weight: 700;
+}
+
+.chord-fret-number {
+    border-left: .25mm solid #d6dae2;
+}
+
+.chord-fret-number.muted {
+    color: #fff;
+    background: #697080;
+}
+
+.chord-string-label {
+    display: grid;
+    height: 5mm;
+    place-items: center;
+    border-bottom: .25mm solid #c5c9d3;
+    color: #425477;
+    background: #eef1f7;
+    font-size: 5pt;
+    font-weight: 700;
+}
+
+.chord-string-label.muted {
+    color: #fff;
+    background: #697080;
+}
+
+.chord-position {
+    position: relative;
+    height: 5mm;
+    border-left: .25mm solid #c5c9d3;
+    border-bottom: .25mm solid #c5c9d3;
+    background: #fff;
+}
+
+.chord-position::before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: .2mm;
+    background: #8d94a2;
+    content: "";
+}
+
+.selection-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #111;
+    font-family: Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+}
+
+
+.board h3 {
+    margin: 0 0 2mm 8mm;
+    font-size: 10pt;
+}
+
+.fretboard-grid {
+    display: grid;
+    grid-template-columns: 7mm repeat(var(--fret-count), minmax(0, 1fr));
+    overflow: hidden;
+    border: 1.5px solid #666d7c;
+    background: #fff;
+}
+
+.fretboard-corner,
+.fret-number,
+.string-label {
+    display: grid;
+    height: 5mm;
+    place-items: center;
+    border-bottom: 1px solid #c5cad3;
+    color: #3e4e6d;
+    background: #eef1f6;
+    font-size: 6pt;
+    font-weight: 700;
+}
+
+.fret-number {
+    border-left: 1px solid #d6dae2;
+}
+
+.fret-cell {
+    position: relative;
+    height: 5mm;
+    border-left: 1px solid #d4d7de;
+    border-bottom: 1px solid #c5cad3;
+    background: #fff;
+}
+
+.fret-cell::before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: #8d94a2;
+    content: "";
+}
+
+.fret-cell .selection-dot {
+    font-size: 13pt;
+}
+
+.tablature-print {
+    margin-top: 2mm;
+}
+
+.tablature-print .tablature-lines {
+    position: relative;
+    flex: 1;
+    padding: 0;
+}
+
+.tablature-print .tablature-staff {
+    display: flex;
+    align-items: stretch;
+    min-height: 32mm;
+    padding: 1mm 0;
+}
+
+.tablature-print .tab-clef {
+    display: flex;
+    width: 18mm;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+    color: #27264d;
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    line-height: .9;
+    text-align: center;
+}
+
+.tablature-print .tab-clef strong {
+    font-size: 12pt;
+    line-height: .78;
+}
+
+.tablature-print .tab-line {
+    display: grid;
+    grid-template-columns: repeat(32, minmax(0, 1fr));
+    height: 5mm;
+    border-top: .2mm solid #969696;
+    background-image: linear-gradient(to right, transparent calc(100% - .3mm), #697080 calc(100% - .3mm));
+    background-size: 50% 100%;
+}
+
+.tablature-print .tab-symbol-line {
+    display: grid;
+    grid-template-columns: repeat(32, minmax(0, 1fr));
+    height: 5mm;
+    min-width: 0;
+}
+
+.tablature-print .tab-duration-line {
+    display: grid;
+    grid-template-columns: repeat(32, minmax(0, 1fr));
+    height: 4mm;
+    min-width: 0;
+}
+
+.tablature-print .tab-duration {
+    display: grid;
+    place-items: center;
+    color: #777895;
+    font-size: 5pt;
+    white-space: nowrap;
+}
+
+.tablature-print .tab-symbol {
+    display: grid;
+    place-items: center;
+    color: var(--ink);
+    font-size: 8pt;
+    font-weight: 700;
+}
+
+.tablature-print .tab-note {
+    display: grid;
+    min-height: 5mm;
+    place-items: center;
+    color: var(--ink);
+    font-size: 9pt;
+}
+
+.tablature-print .tab-line:last-child {
+    border-bottom: .2mm solid #969696;
+}
+
+.page-placeholder {
+    display: grid;
+    min-height: 180mm;
+    place-content: center;
+    color: #697083;
+    text-align: center;
+}
+
+.cover-title {
+    display: grid;
+    min-height: 210mm;
+    place-items: center;
+    color: var(--ink);
+    font-family: Georgia, "Yu Mincho", serif;
+    font-size: 30pt;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-align: center;
+}
+
+.cover-content {
+    display: grid;
+    min-height: 210mm;
+    align-content: center;
+}
+
+.cover-content .cover-title {
+    min-height: 0;
+}
+
+.cover-details {
+    display: grid;
+    gap: 7mm;
+    width: 130mm;
+    margin: 18mm auto 0;
+}
+
+.cover-detail-row {
+    display: grid;
+    grid-template-columns: 35mm 1fr;
+    gap: 5mm;
+    padding-bottom: 2mm;
+    border-bottom: .3mm solid #aeb4c2;
+    color: #5f6778;
+    font-size: 10pt;
+}
+
+.cover-detail-row strong {
+    color: #1d2340;
+    font-weight: 400;
+}
+
+.page-placeholder h2 {
+    color: var(--ink);
+}
+
+.page-placeholder p {
+    max-width: 130mm;
+    white-space: pre-wrap;
+}
+
+.paper-footer {
+    margin-top: auto;
+    padding-top: 8mm;
+    border-top: 1px solid #cdd1dc;
+}
+
+.paper-footer .footer-mark {
+    font-size: 10pt;
+}
+
+.print-error {
+    margin: 80px auto;
+    text-align: center;
+}
+
+@page {
+    size: A4 portrait;
+    margin: 0;
+}
+
+@media print {
+    body {
+        background: #fff;
+    }
+
+    .selection-dot {
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .print-toolbar {
+        display: none;
+    }
+
+    .print-footer {
+        display: none;
+    }
+
+    #print-pages {
+        display: block;
+        padding: 0;
+    }
+
+    .paper {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        break-after: page;
+    }
+
+    .paper:last-child {
+        break-after: auto;
+    }
+}

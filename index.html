@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音録/On-Rock</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <main class="notebook-app">
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <div class="brand">
+                    <span class="brand-icon">♬</span>
+                    <div>
+                        <p class="eyebrow">GUITAR NOTEBOOK</p>
+                        <h1>音録<span>/On-Rock</span></h1>
+                    </div>
+                </div>
+                <button class="new-button" id="new-note" type="button">＋ 新規ノート</button>
+            </header>
+
+            <label class="search-box">
+                <span>⌕</span>
+                <input id="search-input" type="search" placeholder="ページを検索">
+            </label>
+
+            <div class="notes-heading">
+                <span>MY NOTES</span>
+                <span id="note-count">0</span>
+            </div>
+            <nav class="note-list" id="note-list" aria-label="ページ一覧"></nav>
+            <button class="sidebar-delete-button" id="delete-note" type="button" aria-label="ノートを削除">選択中のノートを削除</button>
+            <div class="pages-heading">
+                <span id="page-heading">ページ</span>
+            </div>
+            <nav class="page-list" id="page-list" aria-label="ページ一覧"></nav>
+        </aside>
+
+        <section class="editor-area">
+            <header class="editor-toolbar">
+                <span class="save-status" id="save-status">保存されています</span>
+                <div class="toolbar-actions">
+                    <button class="icon-button add-page-action" id="new-page" type="button">＋ ページを追加</button>
+                    <button class="icon-button page-navigation" id="previous-page" type="button">← 前のページ</button>
+                    <button class="icon-button page-navigation" id="next-page" type="button">次のページ →</button>
+                    <button class="icon-button" id="duplicate-page" type="button">ページを複製</button>
+                    <button class="icon-button" id="delete-page" type="button" aria-label="ページを削除">ページを削除</button>
+                    <button class="primary-button" id="save-note" type="button">保存</button>
+                </div>
+            </header>
+
+            <article class="note-paper">
+                <div class="paper-topline">
+                    <span id="note-date">新しいノート</span>
+                    <span>音録/On-Rock</span>
+                </div>
+                <input class="title-input" id="note-title" type="text" maxlength="80" placeholder="ノートのタイトル">
+                <textarea class="content-input" id="note-content" placeholder="ここにアイデアを書こう…"></textarea>
+                <section class="fretboards" id="fretboards" aria-label="フレット譜面"></section>
+                <section class="tablature" id="tablature" aria-label="六線譜面"></section>
+                <section class="page-type-panel" id="page-type-panel"></section>
+                <div class="paper-footer">
+                    <span>Guitar ideas, one note at a time.</span>
+                    <span id="character-count">0文字</span>
+                </div>
+            </article>
+        </section>
+
+        <aside class="tools-panel" aria-label="ページ編集ツール">
+            <p class="eyebrow">PAGE TOOLS</p>
+            <h2>編集ツール</h2>
+            <div class="tool-group">
+                <button class="tool-button" id="toggle-drawing" type="button">✎ ペン</button>
+                <button class="tool-button" id="clear-drawing" type="button">⌫ 描画を消去</button>
+                <button class="tool-button" id="add-text" type="button">T テキスト追加</button>
+            </div>
+            <div class="tool-group">
+                <button class="tool-button" id="undo-edit" type="button">↶ 元に戻す</button>
+                <button class="tool-button" id="redo-edit" type="button">↷ やり直す</button>
+            </div>
+            <div id="page-specific-tools"></div>
+            <div class="tool-group tab-tools">
+                <p class="tool-label">TAB入力補助</p>
+                <div class="tab-number-grid">
+                    <button class="tool-button" data-tab-note="0" type="button">0</button>
+                    <button class="tool-button" data-tab-note="1" type="button">1</button>
+                    <button class="tool-button" data-tab-note="2" type="button">2</button>
+                    <button class="tool-button" data-tab-note="3" type="button">3</button>
+                    <button class="tool-button" data-tab-note="4" type="button">4</button>
+                    <button class="tool-button" data-tab-note="5" type="button">5</button>
+                    <button class="tool-button" data-tab-note="6" type="button">6</button>
+                    <button class="tool-button" data-tab-note="7" type="button">7</button>
+                    <button class="tool-button" data-tab-note="8" type="button">8</button>
+                    <button class="tool-button" data-tab-note="9" type="button">9</button>
+                    <button class="tool-button" data-tab-note="10" type="button">10</button>
+                    <button class="tool-button" data-tab-note="12" type="button">12</button>
+                </div>
+                <div class="tab-tool-grid">
+                    <button class="tool-button" data-tab-symbol="h" type="button">h ハンマリング</button>
+                    <button class="tool-button" data-tab-symbol="/" type="button">/ スライド</button>
+                    <button class="tool-button" data-tab-symbol="p" type="button">p プリング</button>
+                    <button class="tool-button" data-tab-symbol="~" type="button">~ ビブラート</button>
+                    <button class="tool-button" data-tab-symbol="x" type="button">x ミュート</button>
+                    <button class="tool-button" data-tab-symbol="-" type="button">- 伸ばす</button>
+                </div>
+                <p class="tool-label">音符の種類</p>
+                <div class="tab-duration-grid">
+                    <button class="tool-button" data-tab-duration="全" type="button">𝅝 全音符</button>
+                    <button class="tool-button" data-tab-duration="2分" type="button">𝅗𝅥 二分音符</button>
+                    <button class="tool-button" data-tab-duration="4分" type="button">♩ 四分音符</button>
+                    <button class="tool-button" data-tab-duration="8分" type="button">♪ 八分音符</button>
+                    <button class="tool-button" data-tab-duration="16分" type="button">𝅘𝅥𝅯 十六分音符</button>
+                </div>
+            </div>
+            <p class="tool-hint" id="tool-hint">右側の数字を選び、TAB譜の位置をクリックしてください。</p>
+        </aside>
+    </main>
+
+    <dialog class="new-note-dialog" id="new-note-dialog">
+        <form class="new-note-form" id="new-note-form" method="dialog">
+            <div class="dialog-header">
+                <div>
+                    <p class="eyebrow">CREATE NOTEBOOK</p>
+                    <h2>新規ノートを作成</h2>
+                </div>
+                <button class="dialog-close" id="close-new-note" type="button" aria-label="閉じる">×</button>
+            </div>
+            <label class="form-field">
+                <span>ノートの名前</span>
+                <input id="new-note-title" type="text" maxlength="80" placeholder="例：作曲アイデア" required>
+            </label>
+            <fieldset class="form-field size-field">
+                <legend>用紙サイズ</legend>
+                <label class="size-option">
+                    <input type="radio" name="note-size" value="a4" checked>
+                    <span><strong>A4</strong><small>210 × 297 mm</small></span>
+                </label>
+                <label class="size-option">
+                    <input type="radio" name="note-size" value="a5">
+                    <span><strong>A5</strong><small>148 × 210 mm</small></span>
+                </label>
+                <label class="size-option">
+                    <input type="radio" name="note-size" value="b5">
+                    <span><strong>B5</strong><small>182 × 257 mm</small></span>
+                </label>
+            </fieldset>
+            <div class="dialog-actions">
+                <button class="icon-button" id="cancel-new-note" type="button">キャンセル</button>
+                <button class="primary-button" type="submit">ノートを作成</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="new-note-dialog" id="page-type-dialog">
+        <form class="new-note-form" id="page-type-form" method="dialog">
+            <div class="dialog-header">
+                <div>
+                    <p class="eyebrow">ADD PAGE</p>
+                    <h2>ページの種類を選択</h2>
+                </div>
+                <button class="dialog-close" id="close-page-type" type="button" aria-label="閉じる">×</button>
+            </div>
+            <fieldset class="page-type-options">
+                <legend>作成するページ</legend>
+                <label class="page-type-option">
+                    <input type="radio" name="page-type" value="cover" checked>
+                    <span><strong>表紙</strong><small>ノートの表紙を作成</small></span>
+                </label>
+                <label class="page-type-option">
+                    <input type="radio" name="page-type" value="fretboard">
+                    <span><strong>フレット譜面</strong><small>4つのフレット譜面を作成</small></span>
+                </label>
+                <label class="page-type-option">
+                    <input type="radio" name="page-type" value="tab" disabled>
+                    <span><strong>TAB譜</strong><small>まもなくリリース</small></span>
+                </label>
+                <label class="page-type-option">
+                    <input type="radio" name="page-type" value="chord">
+                    <span><strong>コード譜面</strong><small>コード進行をメモ</small></span>
+                </label>
+                <label class="page-type-option">
+                    <input type="radio" name="page-type" value="effects" disabled>
+                    <span><strong>エフェクター配列</strong><small>まもなくリリース</small></span>
+                </label>
+                <label class="page-type-option">
+                    <input type="radio" name="page-type" value="note">
+                    <span><strong>ノート</strong><small>自由にメモ</small></span>
+                </label>
+            </fieldset>
+            <div class="dialog-actions">
+                <button class="icon-button" id="cancel-page-type" type="button">キャンセル</button>
+                <button class="primary-button" type="submit">ページを作成</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+
+    <footer class="app-footer">
+        <p><span class="footer-mark">♬</span> © K&amp;S Keanu development</p>
+    </footer>
+</body>
+
+</html>
